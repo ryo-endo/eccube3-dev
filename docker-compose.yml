@@ -19,7 +19,7 @@ services:
         links:
             - postgres:db
         volumes:
-            - ./ec-cube:/var/www/html/ec-cube
+            - eccube_data:/var/www/html/ec-cube
 
     postgres:
         build: postgres
@@ -38,3 +38,4 @@ services:
 
 volumes:
     postgres_data:
+    eccube_data:
