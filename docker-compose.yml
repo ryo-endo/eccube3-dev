@@ -35,6 +35,15 @@ services:
         image: schickling/mailcatcher
         ports:
             - "1080:1080"
+            
+    sftp:
+        image: atmoz/sftp
+        privileged: true
+        ports:
+            - "2222:22"
+        command: 'sftp:pass:33:33:upload'
+        volumes:
+             - eccube_data:/home/sftp/upload
 
 volumes:
     postgres_data:
