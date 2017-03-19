@@ -6,6 +6,7 @@ services:
         ports:
             - "8080:80"
             - "8443:443"
+            - "9000:9000"
         environment:
             - TZ=Asia/Tokyo
             - LANG=ja_JP.UTF-8
@@ -14,12 +15,10 @@ services:
             - MAIL_HOST=mail
             - COMPOSER_PROCESS_TIMEOUT=2000
             - ROOT_URLPATH=/ec-cube/html
-            - PHP_XDEBUG_ENABLED=1
-            - XDEBUG_CONFIG=remote_host=10.254.254.254
         links:
             - postgres:db
         volumes:
-            - ./ec-cube:/var/www/html/ec-cube
+            - eccube_data:/var/www/html/ec-cube
 
     postgres:
         build: postgres
@@ -35,6 +34,16 @@ services:
         image: schickling/mailcatcher
         ports:
             - "1080:1080"
+            
+    sftp:
+        image: atmoz/sftp
+        privileged: true
+        ports:
+            - "2222:22"
+        command: 'sftp:pass:33:33:upload'
+        volumes:
+             - eccube_data:/home/sftp/upload
 
 volumes:
     postgres_data:
+    eccube_data:
