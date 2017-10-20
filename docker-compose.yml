@@ -19,6 +19,22 @@ services:
             - postgres:db
         volumes:
             - eccube_data:/var/www/html/ec-cube
+    
+    app_repo:
+        build: app
+        ports:
+            - "8081:80"
+        environment:
+            - TZ=Asia/Tokyo
+            - LANG=ja_JP.UTF-8
+            - DBSERVER=db
+            - DBUSER=postgres
+            - MAIL_HOST=mail
+            - COMPOSER_PROCESS_TIMEOUT=2000
+        links:
+            - postgres:db
+        volumes:
+            - package_repo_data:/var/www/html/package-repo
 
     postgres:
         build: postgres
@@ -29,11 +45,27 @@ services:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
+    
+    mysql:
+        image: mysql:5.7
+        environment:
+            - TZ=Asia/Tokyo
+            - LANG=ja_JP.UTF-8
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=eccube_db
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=password
+            
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
 
     mail:
         image: schickling/mailcatcher
         ports:
             - "1080:1080"
+            - "1025:1025"
             
     sftp:
         image: atmoz/sftp
@@ -43,7 +75,10 @@ services:
         command: 'sftp:pass:33:33:upload'
         volumes:
              - eccube_data:/home/sftp/upload
+             - package_repo_data:/home/sftp/upload_repo
 
 volumes:
     postgres_data:
+    mysql_data:
+    package_repo_data:
     eccube_data:

@@ -1,21 +1,4 @@
-FROM php:5.6.25-apache
-
-# apt-get
-RUN apt-get update && apt-get install -y \
-    apache2-dev \
-    libpq-dev \
-    libmysqlclient-dev \
-    postgresql-9.4 \
-    git \
-    zip \
-    sudo \
-    && rm -rf /var/lib/apt/lists/*
-
-# UTF-8
-RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
-
-# Install php extensions
-RUN docker-php-ext-install pdo pdo_pgsql pdo_mysql zip
+FROM eccube/php-ext-apache
 
 # Enabled mod_rewrite
 RUN a2enmod rewrite
