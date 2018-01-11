@@ -21,15 +21,15 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
             
-    postgres96:
-        build: postgres96
-        environment:
-            - TZ=Asia/Tokyo
-            - LANG=ja_JP.UTF-8
-        ports:
-            - "5433:5432"
-        volumes:
-            - postgres96_data:/var/lib/postgresql/data
+#    postgres96:
+#        build: postgres96
+#        environment:
+#            - TZ=Asia/Tokyo
+#            - LANG=ja_JP.UTF-8
+#        ports:
+#            - "5433:5432"
+#        volumes:
+#            - postgres96_data:/var/lib/postgresql/data
     
     mysql:
         image: mysql:5.7
