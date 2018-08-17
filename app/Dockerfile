@@ -2,6 +2,7 @@ FROM eccube/php-ext-apache
 
 # Enabled mod_rewrite
 RUN a2enmod rewrite
+RUN a2enmod headers
 
 RUN { \
         echo 'date.timezone = "Asia/Tokyo"'; \
