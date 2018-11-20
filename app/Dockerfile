@@ -12,17 +12,17 @@ RUN { \
     } > /usr/local/etc/php/conf.d/eccube.ini
 
 # Xdebug
-#RUN pecl install xdebug && { \
-#        echo 'xdebug.remote_enable=1'; \
-#        echo 'xdebug.remote_host=192.168.99.1'; \
-#        echo 'xdebug.remote_port="9000"'; \
-#        echo 'xdebug.profiler_enable=0'; \
-#        echo 'xdebug.max_nesting_level=1000'; \
-#        echo 'xdebug.idekey = "PHPSTORM"'; \
-#        echo 'xdebug.remote_connect_back=0'; \
-#        echo 'xdebug.remote_autostart=0'; \
-#        echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
-#    } > /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install xdebug && { \
+        echo 'xdebug.remote_enable=1'; \
+        echo 'xdebug.remote_host=192.168.99.1'; \
+        echo 'xdebug.remote_port="9000"'; \
+        echo 'xdebug.profiler_enable=0'; \
+        echo 'xdebug.max_nesting_level=1000'; \
+        echo 'xdebug.idekey = "PHPSTORM"'; \
+        echo 'xdebug.remote_connect_back=0'; \
+        echo 'xdebug.remote_autostart=0'; \
+        echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
+    } > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Enable SSL
 RUN a2enmod ssl
